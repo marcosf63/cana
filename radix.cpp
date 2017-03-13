@@ -51,6 +51,8 @@ Complexide
 //n + d(n + k + 1)
 //n + d(n + k) = n + dn + dk = n (1 + d) + dk = dn + dk
 // d(n + k)
+// https://github.com/marcosf63/cana
+
 
 void imprime_vetor(int vetor[], int tamanho) {
    printf("\nVetor: ");
