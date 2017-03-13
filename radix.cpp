@@ -5,11 +5,11 @@ void radixsort(int vetor[], int tamanho);
 void imprime_vetor(int vetor[], int tamanho);
 
 int main() {
-	int v[5] = {123,456,56,78,390};
+	int v[7] = {329, 457, 657, 839, 436, 720, 355};
 
-	radixsort(v, 5);
+	radixsort(v, 7);
 
-  imprime_vetor(v, 5);
+  imprime_vetor(v, 7);
 
 	return 0;
 }
