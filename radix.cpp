@@ -30,27 +30,29 @@ void radixsort(int vetor[], int tamanho) {
 
     while (maior/exp > 0) {                     //d  vezes - quantidade de dígitos
         int contador[10] = { 0 };
-    	for (i = 0; i < tamanho; i++)
-    	    contador[(vetor[i] / exp) % 10]++;    //dn  vezes
-    	for (i = 1; i < 10; i++)
-    	    contador[i] += contador[i - 1];       // dk vezes - depende da base
-    	for (i = tamanho - 1; i >= 0; i--)
-    	    aux[--contador[(vetor[i] / exp) % 10]] = vetor[i]; // dn  vezes
-    	for (i = 0; i < tamanho; i++)  //dn  vezes
-    	    vetor[i] = aux[i];
-    	exp *= 10;                     //d vezes
+    	for (i = 0; i < tamanho; i++)             //2n
+    	    contador[(vetor[i] / exp) % 10]++;    //n  vezes
+    	for (i = 1; i < 10; i++)                  //2k
+    	    contador[i] += contador[i - 1];       // k vezes - depende da base
+    	for (i = tamanho - 1; i >= 0; i--)        // 2n
+    	    aux[--contador[(vetor[i] / exp) % 10]] = vetor[i]; // n  vezes
+    	for (i = 0; i < tamanho; i++)  //2n  vezes
+    	    vetor[i] = aux[i];        // n
+    	exp *= 10;                     //
     }
 
-    free(aux); // d vezes
+    free(aux); // 1
 }
 
-Complexide
-// 5 + 3n + 2dn + dk + 2d
-// Usando a tecnica
-// n + dn + dk + d
-//n + d(n + k + 1)
-//n + d(n + k) = n + dn + dk = n (1 + d) + dk = dn + dk
-// d(n + k)
+//Complexidade
+// Considerando somente o que está dentro do while
+//  2n + n + 2k + k + 2n + n + 2n + n = 9n + 3k
+// Logo a complexidade do que está dentro do while é:
+// O(n + k)
+// Como o laço while vai executar d vezes temos
+// O(d(n + k))
+
+// Cógido está:
 // https://github.com/marcosf63/cana
 
 
