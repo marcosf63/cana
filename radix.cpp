@@ -51,24 +51,31 @@ void radixsort(int vetor[], int tamanho) {
     int maior = vetor[0];
     int exp = 1;
 
-    aux = (int *)calloc(tamanho, sizeof(int)); // 1 vez
+    aux = (int *)calloc(tamanho, sizeof(int));
 
-    for (i = 0; i < tamanho; i++) {
-        if (vetor[i] > maior)
+    for (i = 0; i < tamanho; i++) { // Este for procura o maior numero do vetor
+        if (vetor[i] > maior)       // para saber a quntidade de digitos
     	    maior = vetor[i];
     }
 
-    while (maior/exp > 0) {                     //d  vezes - quantidade de dígitos
-        int contador[10] = { 0 };
-    	for (i = 0; i < tamanho; i++)
-    	    contador[(vetor[i] / exp) % 10]++;
-    	for (i = 1; i < 10; i++)
-    	    contador[i] += contador[i - 1];
-    	for (i = tamanho - 1; i >= 0; i--)
-    	    aux[--contador[(vetor[i] / exp) % 10]] = vetor[i];
-    	for (i = 0; i < tamanho; i++)
+    while (maior/exp > 0) { // o maior vai ser dividido sucessivamente 1, 10, 100 ... enquanto o resultado for
+                            // maior que 0. Assim o while executa d vezes (onde d é a quantidade de digtos do maior)
+
+      int contador[10] = { 0 }; // Inicializa o contador zero em todas as posições
+
+      for (i = 0; i < tamanho; i++) // Incrementa a contadador na posicao igual ao digito (vetor[i] / exp) % 10
+    	    contador[(vetor[i] / exp) % 10]++; // ou seja, se d = 5, incrementa a posição contador[5]
+
+    	for (i = 1; i < 10; i++)  // A partir do segundo elemento do vetor contador, soma com o valor anterior
+    	    contador[i] += contador[i - 1]; // para saber quantidade de elementos menores
+
+    	for (i = tamanho - 1; i >= 0; i--) // Encontra a posição do elemento na passagem decrementando contador
+    	    aux[--contador[(vetor[i] / exp) % 10]] = vetor[i]; // e transfere para vetor auxiliar
+
+    	for (i = 0; i < tamanho; i++) // Retorno os valores ao vetor original
     	    vetor[i] = aux[i];
     	exp *= 10;
+      // Este processo se repete para cada digito
     }
 
     free(aux);
