@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "time.h"
+#define troca(A, B) { int t = A; A = B; B = t; }
 
 void radixsort(int vetor[], int tamanho);
 void bubblesort( int v[], int qtd );
@@ -11,6 +12,10 @@ void merge(int *, int, int, int);
 int buscabin(int *, int, int, int);
 int inversoes(int *, int, int);
 int inversoesMerge(int *, int, int, int);
+int particione(int *, int, int);
+int quickSort(int *, int, int);
+int min(int *, int, int);
+int minimo(int *, int, int);
 
 int main() {
   // Seminario
@@ -61,12 +66,24 @@ int main() {
   printf("%d\n", inversoes(A, 0, n - 1));
 
   int B[] = {5, 2, 4, 7, 3, 8, 1, 6, 13};
-  mergeSort(A, 0, n - 1);
+  mergeSort(B, 0, n - 1);
 
-  for (int i = 0; i < n; i++)
+  for (int i = 0; i < n; i++){
     printf("%d ", B[i]);
- 
-	return 0;
+
+  }
+  printf("\n" );
+
+  int C[] = {5, 2, 4, 7, 3, 8, 1, 6, 13};
+  quickSort(C, 0, n - 1);
+
+  for (int i = 0; i < n; i++){
+    printf("%d ", C[i]);
+
+  }
+    printf("\n" );
+
+  return 0;
 
 }
 
@@ -267,4 +284,27 @@ void merge(int * A, int p, int q, int r) { // ⊝(n)
       j++;
     }
 
+}
+
+int particione(int *A, int p, int r) {
+   int i, j;
+   i = p - 1;
+
+   for (j = p; j < r; j++)
+     if (A[j] <= A[r]) {
+       i++;
+       troca(A[i], A[j]);
+     }
+
+   i++;
+   troca(A[i], A[r]);
+   return i;
+}
+int quickSort(int *A, int p, int r) {
+  int q;
+  if (p < r) {
+    q = particione(A, p, r);
+    quickSort(A, p, q - 1);
+    quickSort(A, q + 1, r);
+  }
 }
