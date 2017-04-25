@@ -4,44 +4,70 @@
 
 void radixsort(int vetor[], int tamanho);
 void bubblesort( int v[], int qtd );
-void insertionSort(int array[], int tamanho);
+void insertionSort(int vetor[], int tamanho);
 void imprime_vetor(int vetor[], int tamanho);
+void mergeSort(int *, int , int);
+void merge(int *, int, int, int);
+int buscabin(int *, int, int, int);
+int inversoes(int *, int, int);
+int inversoesMerge(int *, int, int, int);
 
 int main() {
+  // Seminario
+  // // Exemplo de ordenação
+  // int vetor[7] = {329, 457, 657, 839, 436, 720, 355};
+  // printf("\nVetor original: ");
+	// imprime_vetor(vetor, 7);
+	// radixsort(vetor, 7);
+	// printf("\nVetor ordenado: ");
+	// imprime_vetor(vetor, 7);
+  //
+	// // Comparando o radix com outros algoritmos
+	// int ti1, tf1, ti2, tf2, ti3, tf3, i, j, *v;
+  //
+  // // Criando os vetores com tamanho 1000, 10000, 100000
+  //
+	// int vetores[3] = {1000, 10000, 100000};
+  // srand(time(0));
+  // printf("        Radix Sort | Buble Sort \n");
+  // // printf("        Radix Sort | Insertion Sort\n");
+  // for (i = 0; i < 3; i++) {
+	// 	v = (int *) calloc(vetores[i], sizeof(vetores[i]));
+	// 	for (j= 0; j < vetores[i]; j++)
+	// 	  v[j] = rand() % vetores[i];
+  //
+  //  	ti1 = clock();
+	//   radixsort(v, vetores[i]);
+	// 	tf1 = clock();
+  //
+	// 	ti2 = clock();
+	// 	bubblesort(v, vetores[i]);
+	// 	tf2 = clock();
+  //
+  //   // ti3 = clock();
+	// 	// insertionSort(v, vetores[i]);
+	// 	// tf3 = clock();
+  //
+	// 	printf("        %f      %f \n", (float)(tf1 - ti1) / CLOCKS_PER_SEC, (float)(tf2 - ti2) / CLOCKS_PER_SEC);
+  //   // printf("        %f      %f \n", (float)(tf1 - ti1) / CLOCKS_PER_SEC, (float)(tf3 - ti3) / CLOCKS_PER_SEC);
+	// }
 
-  // Exemplo de ordenação
-  int vetor[7] = {329, 457, 657, 839, 436, 720, 355};
-  printf("\nVetor original: ");
-	imprime_vetor(vetor, 7);
-	radixsort(vetor, 7);
-	printf("\nVetor ordenado: ");
-	imprime_vetor(vetor, 7);
+  //int A[] = {1, 3, 5, 7, 8, 9, 11, 12, 13, 25, 45}, n;
 
-	// Comparando o radix com outros algoritmos
-	int ti1, tf1, ti2, tf2, i, j, *v;
+  // n = sizeof(A) / sizeof(int);
+  // printf("%d\n", buscabin(A, 0, n - 1, 13));
+  int A[] = {5, 2, 4, 7, 3, 8, 1, 6, 13}, n;
+  n = sizeof(A) / sizeof(int);
+  printf("%d\n", inversoes(A, 0, n - 1));
 
-  // Criando os vetores com tamanho 1000, 10000, 100000
+  int B[] = {5, 2, 4, 7, 3, 8, 1, 6, 13};
+  mergeSort(A, 0, n - 1);
 
-	int vetores[3] = {1000, 10000, 100000};
-  printf("        Radix Sort | Buble Sort \n");
-  for (i = 0; i < 3; i++) {
-		v = (int *) calloc(vetores[i], sizeof(vetores[i]));
-		for (j= 0; j < vetores[i]; j++)
-		  v[j] = rand() % vetores[i];
-
-   	ti1 = clock();
-	  radixsort(v, vetores[i]);
-		tf1 = clock();
-
-		ti2 = clock();
-		bubblesort(v, vetores[i]);
-		tf2 = clock();
-
-		printf("        %f      %f \n", (float)(tf1 - ti1) / CLOCKS_PER_SEC, (float)(tf2 - ti2) / CLOCKS_PER_SEC);
-
-	}
-
+  for (int i = 0; i < n; i++)
+    printf("%d ", B[i]);
+ 
 	return 0;
+
 }
 
 
@@ -109,16 +135,16 @@ void bubblesort( int v[], int qtd )
   }
 }
 
-void insertionSort(int array[], int tamanho) {
-      int i, j, tmp;
+void insertionSort(int vetor[], int tamanho) {
+      int i, j, chave;
       for (i = 1; i < tamanho; i++) {
-            j = i;
-            while (j > 0 && array[j - 1] > array[j]) {
-                  tmp = array[j];
-                  array[j] = array[j - 1];
-                  array[j - 1] = tmp;
-                  j--;
-            }
+          j = i - 1;
+          chave = vetor[i];
+          while (j >= 0 && vetor[j] > chave) {
+            vetor[j + 1] = vetor[j];
+            j--;
+          }
+          vetor[j + 1] = chave;
       }
 }
 
@@ -130,4 +156,115 @@ void imprime_vetor(int vetor[], int tamanho) {
 		 printf("%d ", vetor[i]);
 
 	 printf("\n\n");
+}
+
+int buscabin(int *A, int p, int r, int v) {
+   if (p < r) {
+
+     int q = (p + r) / 2;
+
+     if (A[q] == v) {
+
+       return q + 1;
+
+     } else {
+
+        if (A[q] > v){
+          return buscabin(A, p, q - 1, v);
+        } else {
+          return buscabin(A, q + 1, r, v);
+        }
+
+     }
+
+   } else {
+     if (A[p] == v)
+       return p + 1;
+     else
+       return -1;
+   }
+}
+
+
+int inversoes(int *A, int p, int r) {
+  int il, ir, it, q;
+  if (p < r) {
+    q = (p + r) / 2;
+    il = inversoes(A, p , q);
+    ir = inversoes(A, q + 1, r);
+    it = inversoesMerge(A, p, q, r);
+    return il + ir + it;
+  } return 0;
+
+
+}
+int inversoesMerge(int *A, int p, int q, int r) {
+  int i, j;
+  int nl = q - p + 1;
+  int nr = r - q;
+
+  int * L = (int *)calloc(nl, sizeof(int));
+  int * R = (int *)calloc(nr, sizeof(int));
+
+
+  for (int i = p; i <= q; i++)
+    L[i - p] = A[i];
+
+  for (int j = q + 1; j <= r; j++)
+    R[j - q - 1] = A[j];
+
+  int inv = 0;
+
+  i = j = 0;
+
+  for (int k = p; k <= r; k++)
+    if (i < nl && (j == nr || R[j] >= L[i])) {
+      A[k] = L[i];
+      i++;
+    } else {
+      A[k] = R[j];
+      j++;
+      inv = inv + nl - i;
+    }
+ return inv;
+
+}
+
+void mergeSort(int *A, int p, int r) { //T(n)
+  int q;
+  if (p < r) {
+    q = (p + r) / 2;                        // ⊝(1)
+    mergeSort(A, p, q);                 // T(n/2)
+    mergeSort(A, q + 1, r);             // T(n/2)
+    merge(A, p, q, r);                  // ⊝(n)
+  }
+}
+
+// Assim temos: T(n) = 2T(n/2) + ⊝(n)
+// Pelo teorema mestre temos: T(n) = ⊝(n log n)
+
+void merge(int * A, int p, int q, int r) { // ⊝(n)
+  int nl, nr, *L, *R, i, j, k;
+  nl = q - p + 1;
+  nr = p + r;
+  L = (int *)calloc(nl, sizeof(int));
+  R = (int *)calloc(nl, sizeof(int));
+
+  for (i = p; i <= q; i++)
+    L[i - p] = A[i];
+
+  for (i = q + 1; i <= r; i++)
+    R[i - q - 1] = A[i];
+
+  i = j = 0;
+
+  for (k = 0; k <= r; k++)
+    if ( (i < nl)  &&  ( (j = nr) || (R[j] >= L[i]) ) ) {
+      A[k] = L[i];
+      i++;
+    } else {
+      A[k] = R[j];
+      j++;
+    }
+
 }
