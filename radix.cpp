@@ -88,6 +88,7 @@ int main() {
     printf("\n" );
 
   int D[] = {5, 2, 4, 7, 3, 8};
+  printf("Min: ");
   printf("%d ", min(D, 0, 5));
   printf("\n");
 
@@ -337,7 +338,7 @@ int min(int *A, int p, int r ) { // T(n)
     q = (p + r) / 2;
     int ml = min(A, p, q); //T(n/2)
     int mr = min(A, q + 1, r); // T(n/2)
-    if (ml < mr) // ⊝(1)
+    if (ml <= mr) // ⊝(1)
       return ml;
     else
       return mr;
