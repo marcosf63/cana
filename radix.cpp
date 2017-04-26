@@ -15,7 +15,11 @@ int inversoesMerge(int *, int, int, int);
 int particione(int *, int, int);
 int quickSort(int *, int, int);
 int min(int *, int, int);
-int minimo(int *, int, int);
+int minimo(int, int);
+int duplicata(int *, int, int);
+int soma_e_x(int *, int, int, int);
+int buscabin(int *, int, int, int);
+
 
 int main() {
   // Seminario
@@ -83,6 +87,24 @@ int main() {
   }
     printf("\n" );
 
+  int D[] = {5, 2, 4, 7, 3, 8};
+  printf("%d ", min(D, 0, 5));
+  printf("\n");
+
+
+  int F[] = {1, 2, 1, 7, 3, 8, 8, 4, 7, 2, 2};
+  printf("%d ", duplicata(F, 0, 10));
+  printf("\n");
+
+  int G[] = {1, 2, 5, 7, 3, 8, 8, 4, 10, 12, 25};
+  printf("%d ", soma_e_x(G, 0, 10, 14));
+  printf("\n");
+
+
+  int H[] = {1, 2, 3, 6,  8, 9,  10, 12, 25};
+  printf("buscabin:\n");
+  printf("%d ", buscabin(H, 0, 8, 60));
+  printf("\n");
   return 0;
 
 }
@@ -175,32 +197,32 @@ void imprime_vetor(int vetor[], int tamanho) {
 	 printf("\n\n");
 }
 
-int buscabin(int *A, int p, int r, int v) {
-   if (p < r) {
-
-     int q = (p + r) / 2;
-
-     if (A[q] == v) {
-
-       return q + 1;
-
-     } else {
-
-        if (A[q] > v){
-          return buscabin(A, p, q - 1, v);
-        } else {
-          return buscabin(A, q + 1, r, v);
-        }
-
-     }
-
-   } else {
-     if (A[p] == v)
-       return p + 1;
-     else
-       return -1;
-   }
-}
+// int buscabin(int *A, int p, int r, int v) {
+//    if (p < r) {
+//
+//      int q = (p + r) / 2;
+//
+//      if (A[q] == v) {
+//
+//        return q + 1;
+//
+//      } else {
+//
+//         if (A[q] > v){
+//           return buscabin(A, p, q - 1, v);
+//         } else {
+//           return buscabin(A, q + 1, r, v);
+//         }
+//
+//      }
+//
+//    } else {
+//      if (A[p] == v)
+//        return p + 1;
+//      else
+//        return -1;
+//    }
+// }
 
 
 int inversoes(int *A, int p, int r) {
@@ -306,5 +328,70 @@ int quickSort(int *A, int p, int r) {
     q = particione(A, p, r);
     quickSort(A, p, q - 1);
     quickSort(A, q + 1, r);
+  }
+}
+
+int min(int *A, int p, int r ) { // T(n)
+  int q;
+  if (p > r) {
+    q = (p + r) / 2;
+    int ml = min(A, p, q); //T(n/2)
+    int mr = min(A, q + 1, r); // T(n/2)
+    if (ml < mr) // ⊝(1)
+      return ml;
+    else
+      return mr;
+  } else{
+    return A[p];
+  }
+
+}
+
+int duplicata(int *A,int p, int r) {
+  int i, j, d = 0;
+  quickSort(A, p , r);
+  i = 0;
+  for (j = i + 1; j <= r; j++) {
+    if (A[i] == A[j])
+     d++;
+    i++;
+  }
+
+  return d;
+}
+
+int soma_e_x(int *A, int p, int r, int x) {
+  int i, j;
+  quickSort(A, p , r);
+  i = p;
+  j = r;
+  while (i < j) {
+    if (A[i] + A[j] == x)
+      return 1;
+    else
+      if (A[i] + A[j] > x)
+        j--;
+      else
+        i++;
+  }
+  return 0;
+}
+
+int buscabin(int *A, int p, int r, int v) {
+  int q;
+  if (p < r) {
+    q = (p + r) / 2;
+    if (A[q] == v)
+      return q + 1;
+    else
+      if (A[q] > v)
+        return buscabin(A, p, q - 1, v);
+      else
+        return buscabin(A, q + 1, r, v);
+  } else {
+    if (A[p] == v)
+      return p + 1;
+    else
+      return -1;
   }
 }
