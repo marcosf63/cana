@@ -19,6 +19,9 @@ int minimo(int, int);
 int duplicata(int *, int, int);
 int soma_e_x(int *, int, int, int);
 int buscabin(int *, int, int, int);
+int penalizacaoMinima(int *, int, int *);
+void printSolution(int *, int, int *);
+
 
 
 int main() {
@@ -30,7 +33,8 @@ int main() {
 	// radixsort(vetor, 7);
 	// printf("\nVetor ordenado: ");
 	// imprime_vetor(vetor, 7);
-  //
+  //int penalizacaoMinima()
+
 	// // Comparando o radix com outros algoritmos
 	// int ti1, tf1, ti2, tf2, ti3, tf3, i, j, *v;
   //
@@ -65,46 +69,59 @@ int main() {
 
   // n = sizeof(A) / sizeof(int);
   // printf("%d\n", buscabin(A, 0, n - 1, 13));
-  int A[] = {5, 2, 4, 7, 3, 8, 1, 6, 13}, n;
-  n = sizeof(A) / sizeof(int);
-  printf("%d\n", inversoes(A, 0, n - 1));
+  //int A[] = {5, 2, 4, 7, 3, 8, 1, 6, 13}, n;
+  //n = sizeof(A) / sizeof(int);
+  //printf("%d\n", inversoes(A, 0, n - 1));
 
-  int B[] = {5, 2, 4, 7, 3, 8, 1, 6, 13};
-  mergeSort(B, 0, n - 1);
+  //int B[] = {5, 2, 4, 7, 3, 8, 1, 6, 13};
+  //mergeSort(B, 0, n - 1);
 
-  for (int i = 0; i < n; i++){
-    printf("%d ", B[i]);
+  //for (int i = 0; i < n; i++){
+    //printf("%d ", B[i]);
 
-  }
-  printf("\n" );
+  //}
+  //printf("\n" );
 
-  int C[] = {5, 2, 4, 7, 3, 8, 1, 6, 13};
-  quickSort(C, 0, n - 1);
+  //int C[] = {5, 2, 4, 7, 3, 8, 1, 6, 13};
+  //quickSort(C, 0, n - 1);
 
-  for (int i = 0; i < n; i++){
-    printf("%d ", C[i]);
+  //for (int i = 0; i < n; i++){
+    //printf("%d ", C[i]);
 
-  }
-    printf("\n" );
+  //}
+    //printf("\n" );
 
-  int D[] = {5, 2, 4, 7, 3, 8};
-  printf("Min: ");
-  printf("%d ", min(D, 0, 5));
+  //int D[] = {5, 2, 4, 7, 3, 8};int penalizacaoMinima()
+
+  //printf("Min: ");
+  //printf("%d ", min(D, 0, 5));
+  //printf("\n");
+
+
+  //int F[] = {1, 2, 1, 7, 3, 8, 8, 4, 7, 2, 2};penalizacaoMinima(int *A, int n; int * B)
+  //printf("%d ", duplicata(F, 0, 10));
+  //printf("\n");
+
+  //int G[] = {1, 2, 5, 7, 3, 8, 8, 4, 10, 12, 25};
+  //printf("%d ", soma_e_x(G, 0, 10, 14));
+  //printf("\n");
+
+
+  //int H[] = {1, 2, 3, 6,  8, 9,  10, 12, 25};
+  //printf("buscabin:\n");
+  //printf("%d ", buscabin(H, 0, 8, 60));
+  //printf("\n");
+  
+  int A[] = {0, 180, 210, 320, 400, 450, 560};
+  int n = sizeof(A) / sizeof(int); 
+  int B[n];
+  
+  //printf("%d\n", penalizacaoMinima(A, n, B));
+  //for (int i = 0; i < n; i++)
+     //printf(" %d ", B[i]);
   printf("\n");
-
-
-  int F[] = {1, 2, 1, 7, 3, 8, 8, 4, 7, 2, 2};
-  printf("%d ", duplicata(F, 0, 10));
-  printf("\n");
-
-  int G[] = {1, 2, 5, 7, 3, 8, 8, 4, 10, 12, 25};
-  printf("%d ", soma_e_x(G, 0, 10, 14));
-  printf("\n");
-
-
-  int H[] = {1, 2, 3, 6,  8, 9,  10, 12, 25};
-  printf("buscabin:\n");
-  printf("%d ", buscabin(H, 0, 8, 60));
+  
+  printSolution(A,n,B);
   printf("\n");
   return 0;
 
@@ -378,21 +395,57 @@ int soma_e_x(int *A, int p, int r, int x) {
   return 0;
 }
 
-int buscabin(int *A, int p, int r, int v) {
-  int q;
-  if (p < r) {
-    q = (p + r) / 2;
-    if (A[q] == v)
-      return q + 1;
-    else
-      if (A[q] > v)
-        return buscabin(A, p, q - 1, v);
-      else
-        return buscabin(A, q + 1, r, v);
-  } else {
-    if (A[p] == v)
-      return p + 1;
-    else
-      return -1;
-  }
+//int buscabin(int *A, int p, int r, int v) {
+  //int q;
+  //if (p < r) {
+    //q = (p + r) / 2;
+    //if (A[q] == v)
+      //return q + 1;
+    //else
+      //if (A[q] > v)int penalizacaoMinima()
+//int penalizacaoMinima()
+
+        //return buscabin(A, p, q - 1, v);
+      //else
+        //return buscabin(A, q + 1, r, v);
+  //} else {
+    //if (A[p] == v)
+      //return p + 1;
+    //else
+      //return -1;
+  //}
+//}
+
+int penalizacaoMinima(int *A, int n, int * B) {
+	int i, k , q, P[n];
+	
+	P[0] = 0;
+	B[0] = 0;
+	
+	for (i = 1; i < n; i++) {
+		P[i] = abs(200- A[i]);
+		
+		for ( k = 1; k < i; k++) {
+			q = P[k] + abs(200 - A[i] + A[k]);
+			
+			if (q < P[i]) {
+				P[i] = q;
+				B[i] = k;
+			}
+		}
+		
+	}
+	
+	return P[n - 1];
+}
+
+void printSolution(int * A, int n, int * B) {
+	
+	if (n > 0) {
+		
+		printSolution(A, B[n], B);
+		printf(" %dkm", B[n]);
+		
+	}
+	
 }
